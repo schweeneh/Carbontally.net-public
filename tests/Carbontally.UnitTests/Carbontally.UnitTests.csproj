@@ -83,11 +83,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Carbontally.Domain\Carbontally.Domain.csproj">
+    <ProjectReference Include="..\..\src\Carbontally\Carbontally.Domain\Carbontally.Domain.csproj">
       <Project>{3ef1ab78-b3c9-46cb-bed3-6b54067ec2ed}</Project>
       <Name>Carbontally.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Carbontally\Carbontally.csproj">
+    <ProjectReference Include="..\..\src\Carbontally\Carbontally\Carbontally.csproj">
       <Project>{1ed96abf-1ffe-4628-95dc-dbbbdc365721}</Project>
       <Name>Carbontally</Name>
     </ProjectReference>
