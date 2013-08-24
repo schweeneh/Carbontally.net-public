@@ -1,0 +1,9 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="..\src\Carbontally\Carbontally.UnitTests\bin\Debug\Carbontally.UnitTests.dll" />
+  </Config>
+  <Config name="Release" binpathtype="Auto">
+    <assembly path="..\src\Carbontally\Carbontally.UnitTests\bin\Release\Carbontally.UnitTests.dll" />
+  </Config>
+</NUnitProject>

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally", "Carbontally\Carbontally.csproj", "{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.IntegrationTests", "Carbontally.IntegrationTests\Carbontally.IntegrationTests.csproj", "{C34BC729-E3B8-40DE-922C-D72F433A3D0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.UnitTests", "Carbontally.UnitTests\Carbontally.UnitTests.csproj", "{82115008-1646-49E6-B02A-607C5E7AE344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.Domain", "Carbontally.Domain\Carbontally.Domain.csproj", "{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C34BC729-E3B8-40DE-922C-D72F433A3D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C34BC729-E3B8-40DE-922C-D72F433A3D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C34BC729-E3B8-40DE-922C-D72F433A3D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34BC729-E3B8-40DE-922C-D72F433A3D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82115008-1646-49E6-B02A-607C5E7AE344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82115008-1646-49E6-B02A-607C5E7AE344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82115008-1646-49E6-B02A-607C5E7AE344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82115008-1646-49E6-B02A-607C5E7AE344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

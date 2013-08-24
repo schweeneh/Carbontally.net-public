@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\schweeneh\Documents\Visual Studio 2012\Projects\Carbontally\src\Carbontally\Carbontally.IntegrationTests\carbontally.nunit</TopNode>
+  <SelectedNode>[0-1001]CarbontallySetup</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\schweeneh\Documents\Visual Studio 2012\Projects\Carbontally\src\Carbontally\Carbontally.IntegrationTests\carbontally.nunit" Expanded="true" />
+    <Node UniqueName="[0-1001]CarbontallySetup" Expanded="true" />
+    <Node UniqueName="[0-1006]Carbontally" Expanded="true" />
+    <Node UniqueName="[0-1007]Carbontally.IntegrationTests" Expanded="true" />
+    <Node UniqueName="[0-1008]Carbontally.IntegrationTests.Carbontally" Expanded="true" />
+    <Node UniqueName="[0-1009]Carbontally.IntegrationTests.Carbontally.Domain" Expanded="true" />
+    <Node UniqueName="[0-1010]Carbontally.IntegrationTests.Carbontally.Domain.Persistence" Expanded="true" />
+    <Node UniqueName="[0-1003]Carbontally.IntegrationTests.Carbontally.Domain.Persistence.and_saving_a_valid_study" Expanded="true" />
+  </Nodes>
+</VisualState>

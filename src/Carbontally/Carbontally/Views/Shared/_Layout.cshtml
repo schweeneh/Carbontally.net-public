@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+   
+</head>
+<body>
+    <header>
+            <button id="login" class="header-button-right">Login</button>
+            <h1 class="header-logo-left">Carbontally</h1>
+    </header>
+    @RenderBody()
+    <footer>
+        Cartontally © 2013
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

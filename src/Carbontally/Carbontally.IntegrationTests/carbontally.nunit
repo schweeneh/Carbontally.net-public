@@ -1,0 +1,9 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" processModel="Default" domainUsage="Default" appbase="C:\Users\schweeneh\Documents\Visual Studio 2012\Projects\Carbontally\src\Carbontally\Carbontally.IntegrationTests" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="bin\Debug\Carbontally.IntegrationTests.dll" />
+  </Config>
+  <Config name="Release" binpathtype="Auto">
+    <assembly path="bin\Release\Carbontally.IntegrationTests.dll" />
+  </Config>
+</NUnitProject>
