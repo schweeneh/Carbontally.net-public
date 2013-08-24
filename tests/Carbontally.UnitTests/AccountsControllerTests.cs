@@ -99,17 +99,34 @@ namespace Carbontally.UnitTests
 
             // setup mock security provider.
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-            
 
             // setup controller.
             var controller = new AccountController(mock.Object);
 
             // Act
-            RedirectToRouteResult result = controller.Register(model) as RedirectToRouteResult;
+            controller.Register(model);
 
             // Assert
-            Assert.AreEqual("Home", result.RouteValues["controller"]);
-            Assert.AreEqual("Index", result.RouteValues["action"]);
+            mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Once(), "Expected Login() to be called but it was not.");
+        }
+
+        [TestMethod]
+        public void AccountControllerDoesNotLogInUserWhenModelIsNotValid() {
+            // Arrange
+            var model = new RegisterViewModel();
+
+            // setup mock security provider.
+            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
+
+            // setup controller.
+            var controller = new AccountController(mock.Object);
+
+            // Act.
+            controller.ModelState.AddModelError("key", "Model is invalid");
+            controller.Register(model);
+
+            // Assert.
+            mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
         }
     }
 }

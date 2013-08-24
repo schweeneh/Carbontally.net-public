@@ -30,6 +30,7 @@ namespace Carbontally.Controllers
             if (ModelState.IsValid) {
                 try {
                     _securityProvider.CreateUserAndAccount(model.UserName, model.Password);
+                    _securityProvider.Login(model.UserName, model.Password, false);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e) {
