@@ -19,6 +19,11 @@ namespace Carbontally.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult Login() {
+            return View();
+        }
+
+        [AllowAnonymous]
         public ActionResult Register() {
             return View();
         }

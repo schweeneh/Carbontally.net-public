@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-   
+    @Styles.Render("~/Content/bootstrap/base")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <header>
-            <button id="login" class="header-button-right">Login</button>
+    <header>            
             <h1 class="header-logo-left">Carbontally</h1>
     </header>
     @RenderBody()
     <footer>
         Cartontally © 2013
     </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>

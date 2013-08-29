@@ -4,27 +4,17 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Register","Account",FormMethod.Post, new { @class = "form-horizontal" })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.UserName);
+    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.Password);
+    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.ConfirmPassword);
+    
+    using(Html.Bootstrap().Begin(new FormActions()))
+    {
+        <div>
+            @Html.Bootstrap().SubmitButton().Text("Register")
+        </div>
+    }
 }
