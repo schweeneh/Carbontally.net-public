@@ -1,20 +1,21 @@
 ﻿@model Carbontally.Models.RegisterViewModel
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Carbontally - Register";
 }
 
 @using (Html.BeginForm("Register","Account",FormMethod.Post, new { @class = "form-horizontal" })) {
     @Html.AntiForgeryToken()
+    @Html.Bootstrap().ValidationSummary(true)
 
-    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.UserName);
-    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.Password);
-    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.ConfirmPassword);
+    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.UserName)
+    @Html.Bootstrap().ControlGroup().PasswordFor(m => m.Password)
+    @Html.Bootstrap().ControlGroup().PasswordFor(m => m.ConfirmPassword)
     
     using(Html.Bootstrap().Begin(new FormActions()))
     {
         <div>
-            @Html.Bootstrap().SubmitButton().Text("Register")
+            @Html.Bootstrap().SubmitButton().Text("Register").Style(ButtonStyle.Primary)
         </div>
     }
 }

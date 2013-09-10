@@ -10,6 +10,7 @@ using System.Data.Entity;
 using Carbontally.Domain.Persistence;
 using Carbontally.Infrastructure;
 using WebMatrix.WebData;
+using log4net;
 
 namespace Carbontally
 {
@@ -18,8 +19,14 @@ namespace Carbontally
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static readonly ILog log = LogManager.GetLogger("Global.asax");
+
         protected void Application_Start()
         {
+            log4net.Config.XmlConfigurator.Configure();
+
+            log.Info("Application starting...");
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -30,7 +37,6 @@ namespace Carbontally
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarbontallyContext>());
             Initializer.InitializeSimpleMemberShip();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
-
         }
     }
 }

@@ -6,12 +6,15 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Carbontally.Abstract;
 using Carbontally.Models;
+using log4net;
+using log4net.Config;
 
 namespace Carbontally.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ISecurityProvider _securityProvider;
+        private static readonly ILog log = LogManager.GetLogger(typeof(AccountController));
 
         public AccountController(ISecurityProvider securityProvider)
         {
@@ -34,11 +37,12 @@ namespace Carbontally.Controllers
         public ActionResult Register(RegisterViewModel model) {
             if (ModelState.IsValid) {
                 try {
-                    _securityProvider.CreateUserAndAccount(model.UserName, model.Password);
+                    var securityToken = _securityProvider.CreateUserAndAccount(model.UserName, model.Password, requireConfirmationToken: true);
                     _securityProvider.Login(model.UserName, model.Password, false);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e) {
+                    log.Info(ErrorCodeToString(e.StatusCode), e);
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }

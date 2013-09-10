@@ -1,8 +1,4 @@
-﻿header, footer, nav, section {
-    display: block;
-}
-
-footer {
+﻿footer {
     background-color: black;
     color: white;
 }
@@ -14,7 +10,7 @@ header {
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
-    color: #f00;
+    color: #b94a48;
 }
 
 .field-validation-valid {
@@ -22,21 +18,15 @@ header {
 }
 
 .input-validation-error {
-    border: 1px solid #f00;
-    background-color: #fee;
+    border: 1px solid #b94a48;
+    background-color: #f2dede;
 }
 
 .validation-summary-errors {
     font-weight: bold;
-    color: #f00;
+    color: #b94a48;
 }
 
 .validation-summary-valid {
     display: none;
-}
-
-/*header styles*/
-.header-logo-left {
-    text-align: left;
-    margin-left: 10px;
 }
