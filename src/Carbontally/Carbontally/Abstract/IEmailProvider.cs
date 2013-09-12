@@ -7,6 +7,6 @@ namespace Carbontally.Abstract
 {
     public interface IEmailProvider
     {
-        
+        void SendAccountActivationEmail(string emailAddress, string securityToken, string confirmationUrl);
     }
 }

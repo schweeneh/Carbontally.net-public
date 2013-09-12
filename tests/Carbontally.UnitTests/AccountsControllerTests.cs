@@ -22,9 +22,13 @@ namespace Carbontally.UnitTests
 
             // setup mock security provider.
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
+
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+            
             
             // setup controller.
-            var controller = new AccountController(mock.Object);
+            var controller = new AccountController(mock.Object, emailMock.Object);
 
             // Act.
             controller.Register(model);
@@ -42,8 +46,11 @@ namespace Carbontally.UnitTests
             // setup mock security provider.
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
 
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+
             // setup controller.
-            var controller = new AccountController(mock.Object);
+            var controller = new AccountController(mock.Object, emailMock.Object);
 
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
@@ -62,8 +69,11 @@ namespace Carbontally.UnitTests
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
             mock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Throws<MembershipCreateUserException>();
 
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+
             // setup controller.
-            var controller = new AccountController(mock.Object);
+            var controller = new AccountController(mock.Object, emailMock.Object);
 
             // Act
             controller.Register(model);
@@ -81,8 +91,11 @@ namespace Carbontally.UnitTests
             // setup mock security provider.
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
 
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+
             // setup controller.
-            var controller = new AccountController(mock.Object);
+            var controller = new AccountController(mock.Object, emailMock.Object);
 
             // Act
             RedirectToRouteResult result = controller.Register(model) as RedirectToRouteResult;
@@ -92,23 +105,26 @@ namespace Carbontally.UnitTests
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
-        [TestMethod]
-        public void AccountControllerLogsInUserWhenAccountCreationSucceeds() {
-            // Arrange
-            var model = new RegisterViewModel();
+        //[TestMethod]
+        //public void AccountControllerLogsInUserWhenAccountCreationSucceeds() {
+        //    // Arrange
+        //    var model = new RegisterViewModel();
 
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
+        //    // setup mock security provider.
+        //    Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
 
-            // setup controller.
-            var controller = new AccountController(mock.Object);
+        //    // setup mock email provider.
+        //    Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
 
-            // Act
-            controller.Register(model);
+        //    // setup controller.
+        //    var controller = new AccountController(mock.Object, emailMock.Object);
 
-            // Assert
-            mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Once(), "Expected Login() to be called but it was not.");
-        }
+        //    // Act
+        //    controller.Register(model);
+
+        //    // Assert
+        //    mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Once(), "Expected Login() to be called but it was not.");
+        //}
 
         [TestMethod]
         public void AccountControllerDoesNotLogInUserWhenModelIsNotValid() {
@@ -118,8 +134,11 @@ namespace Carbontally.UnitTests
             // setup mock security provider.
             Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
 
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+
             // setup controller.
-            var controller = new AccountController(mock.Object);
+            var controller = new AccountController(mock.Object, emailMock.Object);
 
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
@@ -127,6 +146,27 @@ namespace Carbontally.UnitTests
 
             // Assert.
             mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
+        }
+
+        [TestMethod]
+        public void AccountControllerSendsEmailWhenAccountCreationSucceeds() {
+            // Arrange
+            var model = new RegisterViewModel();
+
+            // setup mock security provider.
+            Mock<ISecurityProvider> securityMock = new Mock<ISecurityProvider>();
+
+            // setup mock email provider.
+            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
+
+            // setup controller.
+            var controller = new AccountController(securityMock.Object, emailMock.Object);
+
+            // Act
+            controller.Register(model);
+
+            // Assert
+            emailMock.Verify(m => m.SendAccountActivationEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once(),"Expected SendAccountActivationEmail() to be called but it was not.");
         }
     }
 }

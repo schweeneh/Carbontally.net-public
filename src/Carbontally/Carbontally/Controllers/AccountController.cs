@@ -14,11 +14,14 @@ namespace Carbontally.Controllers
     public class AccountController : Controller
     {
         private readonly ISecurityProvider _securityProvider;
+        private readonly IEmailProvider _emailProvider;
         private static readonly ILog log = LogManager.GetLogger(typeof(AccountController));
+        
 
-        public AccountController(ISecurityProvider securityProvider)
+        public AccountController(ISecurityProvider securityProvider, IEmailProvider emailProvider)
         {
             _securityProvider = securityProvider;
+            _emailProvider = emailProvider;
         }
 
         [AllowAnonymous]
@@ -38,11 +41,11 @@ namespace Carbontally.Controllers
             if (ModelState.IsValid) {
                 try {
                     var securityToken = _securityProvider.CreateUserAndAccount(model.UserName, model.Password, requireConfirmationToken: true);
-                    _securityProvider.Login(model.UserName, model.Password, false);
+                    _emailProvider.SendAccountActivationEmail("", "", "");
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e) {
-                    log.Info(ErrorCodeToString(e.StatusCode), e);
+                    log.Info(string.Format("Could not create account for {0} - {1}",model.UserName, ErrorCodeToString(e.StatusCode)));
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }
