@@ -23,7 +23,7 @@ namespace Carbontally.UnitTests
         }
 
         [TestMethod]
-        public void SendAccountActivationEmail_ShouldSendsEmail() {
+        public void SendAccountActivationEmail_ShouldSendEmail() {
             // Act
             _email.SendAccountActivationEmail("test@test.com", "1234", "http://test.com");
 
@@ -34,10 +34,22 @@ namespace Carbontally.UnitTests
         [TestMethod]
         public void SendAccountActivationEmail_ShouldSetConfirmationUrl() {
             // Act
-            _email.SendAccountActivationEmail("test@test.com", "1234", "http://test.com");
+            _email.SendAccountActivationEmail("test@test.com", "1234", "http://www.test.com");
 
             // Assert
-            Assert.AreEqual("http://test.com?token=1234", _email.ConfirmationLink);
+            Assert.AreEqual("http://www.test.com/Account/Confirm?token=1234", _email.ConfirmationLink);
+        }
+
+        [TestMethod]
+        public void SendAccountActivationEmail_ShouldSendToCorrectEmailAddress() {
+            // Arrange
+            var target = "test@test.com";
+
+            // Act 
+            _email.SendAccountActivationEmail(target, "", "");
+
+            // Assert
+            Assert.AreEqual(target, _email.To);
         }
     }
 }

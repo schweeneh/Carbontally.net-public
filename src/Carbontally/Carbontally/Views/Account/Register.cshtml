@@ -8,7 +8,7 @@
     @Html.AntiForgeryToken()
     @Html.Bootstrap().ValidationSummary(true)
 
-    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.UserName)
+    @Html.Bootstrap().ControlGroup().TextBoxFor(m => m.Email)
     @Html.Bootstrap().ControlGroup().PasswordFor(m => m.Password)
     @Html.Bootstrap().ControlGroup().PasswordFor(m => m.ConfirmPassword)
     

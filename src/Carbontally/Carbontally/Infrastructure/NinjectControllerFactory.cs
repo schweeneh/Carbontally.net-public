@@ -35,6 +35,8 @@ namespace Carbontally.Infrastructure
         private void AddBindings()
         {
             ninjectKernel.Bind<ISecurityProvider>().To<CarbontallySecurityProvider>();
+            ninjectKernel.Bind<IEmailProvider>().To<CarbontallyEmailProvider>();
+            ninjectKernel.Bind<ISmtpClient>().To<CarbontallySmtpClient>();
         }
     }
 }

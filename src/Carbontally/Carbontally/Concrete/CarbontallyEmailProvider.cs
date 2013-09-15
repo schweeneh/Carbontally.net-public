@@ -53,7 +53,7 @@ namespace Carbontally.Concrete
         }
 
         private string CreateConfirmationLink(string securityToken, string confirmationUrl) {
-            ConfirmationLink = string.Format("{0}?token={1}", confirmationUrl.ThrowIfNull("confirmationUrl"), securityToken.ThrowIfNull("securityToken"));
+            ConfirmationLink = string.Format("{0}/Account/Confirm?token={1}", confirmationUrl.ThrowIfNull("confirmationUrl"), securityToken.ThrowIfNull("securityToken"));
 
             return ConfirmationLink;
         }

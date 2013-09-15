@@ -40,12 +40,12 @@ namespace Carbontally.Controllers
         public ActionResult Register(RegisterViewModel model) {
             if (ModelState.IsValid) {
                 try {
-                    var securityToken = _securityProvider.CreateUserAndAccount(model.UserName, model.Password, requireConfirmationToken: true);
-                    _emailProvider.SendAccountActivationEmail("", "", "");
+                    var securityToken = _securityProvider.CreateUserAndAccount(model.Email, model.Password, requireConfirmationToken: true);
+                    _emailProvider.SendAccountActivationEmail(model.Email, securityToken, System.Configuration.ConfigurationManager.AppSettings["WebSiteUrl"]);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e) {
-                    log.Info(string.Format("Could not create account for {0} - {1}",model.UserName, ErrorCodeToString(e.StatusCode)));
+                    log.Info(string.Format("Could not create account for {0} - {1}",model.Email, e.Message));
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }
