@@ -171,17 +171,21 @@
   <ItemGroup>
     <Compile Include="Abstract\IEmailProvider.cs" />
     <Compile Include="Abstract\ISecurityProvider.cs" />
+    <Compile Include="Abstract\ISmtpClient.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Concrete\CarbontallyEmailProvider.cs" />
     <Compile Include="Concrete\CarbontallySecurityProvider.cs" />
+    <Compile Include="Concrete\CarbontallySmtpClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\EmailModule.cs" />
+    <Compile Include="Infrastructure\Helpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Infrastructure\SimpleMemberShipInitializer.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
