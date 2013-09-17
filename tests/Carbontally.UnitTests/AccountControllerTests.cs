@@ -14,66 +14,46 @@ namespace Carbontally.UnitTests
     [TestClass]
     public class AccountControllerTests
     {
-        [TestMethod]
-        public void AccountControllerAccountCreatedWhenModelIsValid()
-        {
+        private RegisterViewModel model;
+        private Mock<ISecurityProvider> securityMock;
+        private Mock<IEmailProvider> emailMock;
+        private AccountController controller;
+
+        [TestInitialize]
+        public void Initialize() {
             // Arrange
-            var model = new RegisterViewModel();
+            model = new RegisterViewModel();
+            securityMock = new Mock<ISecurityProvider>();
+            emailMock = new Mock<IEmailProvider>();
 
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-            
-            
             // setup controller.
-            var controller = new AccountController(mock.Object, emailMock.Object);
+            controller = new AccountController(securityMock.Object, emailMock.Object);
+        }
 
+        [TestMethod]
+        public void Register_ShouldCreateAccountWhenModelIsValid()
+        {
             // Act.
             controller.Register(model);
 
             // Assert.
-            mock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Once(), "Expected CreateUserAndAccount() to be called but it was not.");
+            securityMock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Once(), "Expected CreateUserAndAccount() to be called but it was not.");
         }
 
         [TestMethod]
-        public void AccountControllerAccountNotCreatedWhenModelIsNotValid()
+        public void Register_ShouldNotCreateAccountWhenModelIsNotValid()
         {
-            // Arrange
-            var model = new RegisterViewModel();
-            
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-
-            // setup controller.
-            var controller = new AccountController(mock.Object, emailMock.Object);
-
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
             controller.Register(model);
             
             // Assert.
-            mock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Never(), "Expected CreateUserAndAccount() to NOT be called but it was.");
+            securityMock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Never(), "Expected CreateUserAndAccount() to NOT be called but it was.");
         }
 
         [TestMethod]
-        public void AccountControllerAddsErrorToModelStateWhenAccountCreationFails() {
-            // Arrange
-            var model = new RegisterViewModel();
-
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-            mock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Throws<MembershipCreateUserException>();
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-
-            // setup controller.
-            var controller = new AccountController(mock.Object, emailMock.Object);
+        public void Register_ShouldAddErrorToModelStateWhenAccountCreationFails() {
+            securityMock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Throws<MembershipCreateUserException>();
 
             // Act
             controller.Register(model);
@@ -84,19 +64,7 @@ namespace Carbontally.UnitTests
         }
 
         [TestMethod]
-        public void AccountControllerRedirectsToHomeIndexWhenAccountCreationSucceeds() {
-            // Arrange
-            var model = new RegisterViewModel();
-
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-
-            // setup controller.
-            var controller = new AccountController(mock.Object, emailMock.Object);
-
+        public void Register_ShouldRedirectToHomeIndexWhenAccountCreationSucceeds() {
             // Act
             RedirectToRouteResult result = controller.Register(model) as RedirectToRouteResult;
 
@@ -106,43 +74,22 @@ namespace Carbontally.UnitTests
         }
         
         [TestMethod]
-        public void AccountControllerDoesNotLogInUserWhenModelIsNotValid() {
-            // Arrange
-            var model = new RegisterViewModel();
-
-            // setup mock security provider.
-            Mock<ISecurityProvider> mock = new Mock<ISecurityProvider>();
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-
-            // setup controller.
-            var controller = new AccountController(mock.Object, emailMock.Object);
-
+        public void Register_ShouldNotLogInUserWhenModelIsNotValid() {
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
             controller.Register(model);
 
             // Assert.
-            mock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
+            securityMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
         }
 
         [TestMethod]
         public void Register_SendsEmailWhenAccountCreationSucceeds() {
-            // Arrange
-            var model = new RegisterViewModel();
-
             // setup mock security provider.
             var securityToken = "1234";
-            Mock<ISecurityProvider> securityMock = new Mock<ISecurityProvider>();
+            
             securityMock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Returns(securityToken);
-
-            // setup mock email provider.
-            Mock<IEmailProvider> emailMock = new Mock<IEmailProvider>();
-
-            // setup controller.
-            var controller = new AccountController(securityMock.Object, emailMock.Object);
-
+            
             // Setup model.
             model.Email = "test@test.com";
 
