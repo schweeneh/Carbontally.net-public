@@ -64,13 +64,13 @@ namespace Carbontally.UnitTests
         }
 
         [TestMethod]
-        public void Register_ShouldRedirectToHomeIndexWhenAccountCreationSucceeds() {
+        public void Register_ShouldRedirectToAccountCreatedWhenAccountCreationSucceeds() {
             // Act
             RedirectToRouteResult result = controller.Register(model) as RedirectToRouteResult;
 
             // Assert
-            Assert.AreEqual("Home", result.RouteValues["controller"]);
-            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Account", result.RouteValues["controller"]);
+            Assert.AreEqual("Created", result.RouteValues["action"]);
         }
         
         [TestMethod]
@@ -100,6 +100,24 @@ namespace Carbontally.UnitTests
 
             // Assert
             emailMock.Verify(m => m.SendAccountActivationEmail(model.Email, securityToken, confirmationUrl), Times.Once(),"Expected SendAccountActivationEmail() to be called but it was not.");
+        }
+
+        [TestMethod]
+        public void Created_ShouldReturnView() {
+            // Act
+            var createdView = controller.Created();
+
+            // Assert
+            Assert.IsInstanceOf(typeof(ViewResult), createdView);
+        }
+
+        [TestMethod]
+        public void Verify_ShouldConfirmAccount() {
+            // Act
+            controller.Confirm();
+
+            // Assert 
+            securityMock.Verify(m => m.ConfirmAccount(It.IsAny<string>()), Times.Once(), "Expected ConfirmAccount() to be called but it was not.");
         }
     }
 }

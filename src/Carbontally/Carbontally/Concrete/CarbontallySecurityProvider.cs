@@ -17,5 +17,9 @@ namespace Carbontally.Concrete
         public bool Login(string userName, string password, bool persistCookie = false) {
             return WebSecurity.Login(userName, password, persistCookie);
         }
+
+        public bool ConfirmAccount(string accountConfirmationToken) {
+            return WebSecurity.ConfirmAccount(accountConfirmationToken);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Carbontally.Abstract
         string CreateUserAndAccount(string userName, string password, object propertyValues = null, bool requireConfirmationToken = false);
 
         bool Login(string userName, string password, bool persistCookie = false);
+
+        bool ConfirmAccount(string accountConfirmationToken);
     }
 }

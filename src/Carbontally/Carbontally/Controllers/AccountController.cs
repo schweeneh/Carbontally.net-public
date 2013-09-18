@@ -34,6 +34,17 @@ namespace Carbontally.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ViewResult Created() {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ViewResult Confirm() {
+            _securityProvider.ConfirmAccount("");
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -42,7 +53,7 @@ namespace Carbontally.Controllers
                 try {
                     var securityToken = _securityProvider.CreateUserAndAccount(model.Email, model.Password, requireConfirmationToken: true);
                     _emailProvider.SendAccountActivationEmail(model.Email, securityToken, System.Configuration.ConfigurationManager.AppSettings["WebSiteUrl"]);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Created", "Account");
                 }
                 catch (MembershipCreateUserException e) {
                     log.Info(string.Format("Could not create account for {0} - {1}",model.Email, e.Message));
