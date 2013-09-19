@@ -40,9 +40,18 @@ namespace Carbontally.Controllers
         }
 
         [AllowAnonymous]
-        public ViewResult Confirm() {
-            _securityProvider.ConfirmAccount("");
-            return View();
+        public ViewResult Confirm(string token) {
+            bool confirmed = false; 
+
+            try {
+                confirmed = _securityProvider.ConfirmAccount(token);
+            }
+            catch (Exception e) {
+                log.Error(string.Format("Account confirmation failed - {0}", e.Message));
+                confirmed = false;
+            }
+
+            return View(confirmed);
         }
 
         [HttpPost]

@@ -113,11 +113,50 @@ namespace Carbontally.UnitTests
 
         [TestMethod]
         public void Verify_ShouldConfirmAccount() {
+            // Arrange
+            var accountConfirmationToken = "1234";
+
             // Act
-            controller.Confirm();
+            controller.Confirm(accountConfirmationToken);
 
             // Assert 
-            securityMock.Verify(m => m.ConfirmAccount(It.IsAny<string>()), Times.Once(), "Expected ConfirmAccount() to be called but it was not.");
+            securityMock.Verify(m => m.ConfirmAccount(accountConfirmationToken), Times.Once(), "Expected ConfirmAccount() to be called but it was not.");
+        }
+
+        [TestMethod]
+        public void Verify_ShouldReturnTrue_WhenAccountConfirmationSucceeds() {
+            // Arrange 
+            securityMock.Setup(m => m.ConfirmAccount(It.IsAny<string>())).Returns(true);
+
+            // Act
+            ViewResult target = controller.Confirm("");
+
+            // Assert
+            Assert.AreEqual(true, target.Model);
+        }
+
+        [TestMethod]
+        public void Verify_ShouldReturnFalse_WhenAccountConfirmationFails() {
+            // Arrange 
+            securityMock.Setup(m => m.ConfirmAccount(It.IsAny<string>())).Returns(false);
+
+            // Act
+            ViewResult target = controller.Confirm("");
+
+            // Assert
+            Assert.AreEqual(false, target.Model);
+        }
+
+        [TestMethod]
+        public void Verify_ShouldReturnFalse_WhenAccountConfirmationThrowsException() {
+            // Arrange 
+            securityMock.Setup(m => m.ConfirmAccount(It.IsAny<string>())).Throws<Exception>();
+
+            // Act
+            ViewResult target = controller.Confirm("");
+
+            // Assert
+            Assert.AreEqual(false, target.Model);
         }
     }
 }

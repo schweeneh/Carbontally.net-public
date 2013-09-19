@@ -1,0 +1,12 @@
+﻿@model bool
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+@if (Model) {
+    <p class="text-center"><strong>Congratulations</strong>, you're account is ready to go.</p>
+    <p class="text-center">You can @Html.ActionLink("Login","Login","Account")</p>
+} else {
+    <p class="text-center">Something went wrong while trying to confirm your account.</p>
+}
