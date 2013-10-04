@@ -43,8 +43,8 @@ namespace Carbontally
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
-                        "~/Content/bootstrap/css/bootstrap.css",
-                        "~/Content/bootstrap/css/bootstrap-responsive.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/bootstrap-theme.css"));
         }
     }
 }

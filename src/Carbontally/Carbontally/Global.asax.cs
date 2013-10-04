@@ -11,6 +11,7 @@ using Carbontally.Domain.Persistence;
 using Carbontally.Infrastructure;
 using WebMatrix.WebData;
 using log4net;
+using TwitterBootstrapMVC;
 
 namespace Carbontally
 {
@@ -37,6 +38,9 @@ namespace Carbontally
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarbontallyContext>());
             Initializer.InitializeSimpleMemberShip();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+
+            // TwitterBootstrapMVC config.
+            Bootstrap.Configure();
         }
     }
 }
