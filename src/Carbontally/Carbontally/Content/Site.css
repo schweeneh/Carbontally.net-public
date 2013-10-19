@@ -30,3 +30,7 @@ header {
 .validation-summary-valid {
     display: none;
 }
+
+.bmvc-3-validation-summary ul {
+    list-style-type: none;
+}

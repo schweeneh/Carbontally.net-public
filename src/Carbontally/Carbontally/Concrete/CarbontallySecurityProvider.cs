@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Carbontally.Abstract;
 using WebMatrix.WebData;
+using WebMatrix;
+
 
 namespace Carbontally.Concrete
 {
@@ -20,6 +22,10 @@ namespace Carbontally.Concrete
 
         public bool ConfirmAccount(string accountConfirmationToken) {
             return WebSecurity.ConfirmAccount(accountConfirmationToken);
+        }
+
+        public bool DeleteAccount(string userName) {
+            ((SimpleMemberShipProvider)MemberShip.Provider).DeleteUser(userName, true);
         }
     }
 }

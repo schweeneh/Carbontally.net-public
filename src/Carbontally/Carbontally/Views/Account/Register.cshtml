@@ -4,15 +4,17 @@
     ViewBag.Title = "Carbontally - Register";
 }
 
-@using (Html.BeginForm("Register","Account",FormMethod.Post)) {
+@using (var form = Html.Bootstrap().Begin(new Form().InputWidthLg(3).InputWidthMd(3).InputWidthSm(11).InputWidthXs(11).Type(FormType.Horizontal))) {
     @Html.AntiForgeryToken()
-    @Html.Bootstrap().ValidationSummary();
-    
-    @Html.Bootstrap().FormGroup().TextBoxFor(m => m.Email).ShowValidationMessage(false)
-    @Html.Bootstrap().FormGroup().PasswordFor(m => m.Password).ShowValidationMessage(false)
-    @Html.Bootstrap().FormGroup().PasswordFor(m => m.ConfirmPassword).ShowValidationMessage(false)
-        
-    <div>
-        @Html.Bootstrap().SubmitButton().Text("Register").Style(ButtonStyle.Primary)
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            @Html.Bootstrap().ValidationSummary().ExcludePropertyErrors(true)
+        </div>
     </div>
+    @form.FormGroup().TextBoxFor(m => m.Email)
+    @form.FormGroup().PasswordFor(m => m.Password)
+    @form.FormGroup().PasswordFor(m => m.ConfirmPassword)
+       
+    @(form.FormGroup().CustomControls(
+        @Html.Bootstrap().SubmitButton().Text("Register").Style(ButtonStyle.Primary).LoadingText("Working...")))
 }
