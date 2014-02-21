@@ -6,12 +6,12 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Data.Entity;
 using Carbontally.Domain.Persistence;
 using Carbontally.Infrastructure;
 using WebMatrix.WebData;
 using log4net;
 using TwitterBootstrapMVC;
+using System.Data.Entity;
 
 namespace Carbontally
 {

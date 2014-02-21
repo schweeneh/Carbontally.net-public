@@ -6,7 +6,6 @@ using Carbontally.Abstract;
 using WebMatrix.WebData;
 using WebMatrix;
 
-
 namespace Carbontally.Concrete
 {
     public class CarbontallySecurityProvider : ISecurityProvider
@@ -25,7 +24,7 @@ namespace Carbontally.Concrete
         }
 
         public bool DeleteAccount(string userName) {
-            ((SimpleMemberShipProvider)MemberShip.Provider).DeleteUser(userName, true);
+            return ((SimpleMembershipProvider)System.Web.Security.Membership.Provider).DeleteUser(userName, true);
         }
     }
 }
