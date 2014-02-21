@@ -175,10 +175,11 @@
     </Reference>
     <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\T4MVCExtensions.3.7.6\lib\net40\T4MVCExtensions.dll</HintPath>
+      <HintPath>..\packages\T4MVCExtensions.3.6.5\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="TwitterBootstrapMVC">
-      <HintPath>..\packages\TwitterBootstrapMVC.3.11.5\lib\net40\TwitterBootstrapMVC.dll</HintPath>
+    <Reference Include="TwitterBootstrapMVC5, Version=3.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TwitterBootstrapMVC5.3.11.5\lib\net40\TwitterBootstrapMVC5.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

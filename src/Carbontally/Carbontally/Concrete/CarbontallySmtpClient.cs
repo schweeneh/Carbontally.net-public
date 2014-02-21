@@ -9,10 +9,11 @@ namespace Carbontally.Concrete
 {
     public class CarbontallySmtpClient : ISmtpClient 
     {
-        private SmtpClient client = new SmtpClient(); // Set this up properly with host and port.
-
         public void Send(MailMessage message) {
-            client.Send(message);
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.Send(message);
+            }
         }
     }
 }
