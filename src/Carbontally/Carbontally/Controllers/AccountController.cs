@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Carbontally.Abstract;
 using Carbontally.Models;
+using Carbontally.Infrastructure;
 using log4net;
 using log4net.Config;
 
@@ -17,7 +18,6 @@ namespace Carbontally.Controllers
         private readonly IEmailProvider _emailProvider;
         private static readonly ILog log = LogManager.GetLogger(typeof(AccountController));
         
-
         public AccountController(ISecurityProvider securityProvider, IEmailProvider emailProvider)
         {
             _securityProvider = securityProvider;
@@ -47,7 +47,7 @@ namespace Carbontally.Controllers
                 confirmed = _securityProvider.ConfirmAccount(token);
             }
             catch (Exception e) {
-                log.Error(string.Format("Account confirmation failed - {0}", e.Message));
+                log.Error(string.Format("Account confirmation failed - {0}", e.Message), e);
                 confirmed = false;
             }
 
@@ -67,6 +67,16 @@ namespace Carbontally.Controllers
                 catch (MembershipCreateUserException e) {
                     log.Info(string.Format("Could not create account for {0} - {1}",model.Email, e.Message));
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
+                catch (SendActivationEmailException e)
+                {
+                    log.Error("Error sending email", e);
+                    ModelState.AddModelError("", "There was an error sending the email");
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Unhandled exception in Account/Register", ex);
+                    ModelState.AddModelError("", "Oops, something went wrong.");
                 }
             }
 

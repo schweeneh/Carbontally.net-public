@@ -52,7 +52,20 @@ namespace Carbontally.UnitTests
         }
 
         [TestMethod]
-        public void Register_ShouldAddErrorToModelStateWhenAccountCreationFails() {
+        public void Register_ShouldAddErrorToModelStateWhenSendEmailThrows_SendActivationEmailException() {
+            emailMock.Setup(m => m.SendAccountActivationEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<SendActivationEmailException>();
+
+            // Act
+            controller.Register(model);
+            var target = controller.ModelState;
+
+            // Assert
+            Assert.AreEqual(false, target.IsValid);
+        }
+        
+        [TestMethod]
+        public void Register_ShouldAddErrorToModelStateWhenAccountCreationFails()
+        {
             securityMock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Throws<MembershipCreateUserException>();
 
             // Act

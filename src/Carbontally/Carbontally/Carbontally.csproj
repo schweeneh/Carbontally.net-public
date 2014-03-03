@@ -217,6 +217,7 @@
     <Compile Include="Infrastructure\EmailModule.cs" />
     <Compile Include="Infrastructure\Helpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
+    <Compile Include="Infrastructure\Exceptions\SendActivationEmailException.cs" />
     <Compile Include="Infrastructure\SimpleMemberShipInitializer.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />

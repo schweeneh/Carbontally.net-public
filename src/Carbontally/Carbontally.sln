@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally", "Carbontally\Carbontally.csproj", "{1ED96ABF-1FFE-4628-95DC-DBBBDC365721}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.Domain", "Carbontally.Domain\Carbontally.Domain.csproj", "{3EF1AB78-B3C9-46CB-BED3-6B54067EC2ED}"
@@ -8,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.IntegrationTests", "..\..\tests\Carbontally.IntegrationTests\Carbontally.IntegrationTests.csproj", "{C34BC729-E3B8-40DE-922C-D72F433A3D0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carbontally.UnitTests", "..\..\tests\Carbontally.UnitTests\Carbontally.UnitTests.csproj", "{82115008-1646-49E6-B02A-607C5E7AE344}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3B9B46EE-F614-4FFF-82FC-A918C551E469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

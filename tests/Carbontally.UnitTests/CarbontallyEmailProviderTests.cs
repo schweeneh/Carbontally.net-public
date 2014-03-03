@@ -51,5 +51,33 @@ namespace Carbontally.UnitTests
             // Assert
             Assert.AreEqual(target, _email.To);
         }
+
+        [TestMethod]
+        public void SendAccountActivationEmail_ShouldThrowExceptionWhenEmailIsEmptyString()
+        {
+            // Assert
+            Assert.Throws(typeof(SendActivationEmailException), delegate { _email.SendAccountActivationEmail("", "", ""); });
+        }
+
+        [TestMethod]
+        public void SendAccountActivationEmail_ShouldThrowExceptionWhenEmailIsNull()
+        {
+            // Assert
+            Assert.Throws(typeof(SendActivationEmailException), delegate { _email.SendAccountActivationEmail(null, "", ""); });
+        }
+
+        [TestMethod]
+        public void SendAccountActivationEmail_ShouldThrowExceptionWhenSecurityTokenIsNull()
+        {
+            // Assert
+            Assert.Throws(typeof(SendActivationEmailException), delegate { _email.SendAccountActivationEmail("a@a.com", null, ""); });
+        }
+
+        [TestMethod]
+        public void SendAccountActivationEmail_ShouldThrowExceptionWhenConfirmationUrlIsNull()
+        {
+            // Assert
+            Assert.Throws(typeof(SendActivationEmailException), delegate { _email.SendAccountActivationEmail("a@a.com", "", null); });
+        }
     }
 }
