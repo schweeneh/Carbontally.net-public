@@ -25,7 +25,16 @@ namespace Carbontally.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login() {
+        public ActionResult Login(LoginViewModel model) {
+            if (ModelState.IsValid)
+            {
+                // Cookie is not persisted, user has to login every time. Add checkbox for persistent cookie?
+                if (!_securityProvider.Login(model.UserName, model.Password))
+                {
+                    ModelState.AddModelError("", "Incorrect username or password.");
+                }
+            }
+
             return View();
         }
 
@@ -67,11 +76,6 @@ namespace Carbontally.Controllers
                 catch (MembershipCreateUserException e) {
                     log.Info(string.Format("Could not create account for {0} - {1}",model.Email, e.Message));
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
-                catch (SendActivationEmailException e)
-                {
-                    log.Error("Error sending email", e);
-                    ModelState.AddModelError("", "There was an error sending the email");
                 }
                 catch (Exception ex)
                 {

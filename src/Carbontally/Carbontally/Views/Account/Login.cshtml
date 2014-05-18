@@ -3,11 +3,18 @@
 @{
     ViewBag.Title = "Login";
 }
+@using (var form = Html.Bootstrap().Begin(new Form().InputWidthLg(3).InputWidthMd(3).InputWidthSm(11).InputWidthXs(11).Type(FormType.Horizontal))){
+    @Html.AntiForgeryToken()
+     <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            @Html.Bootstrap().ValidationSummary().ExcludePropertyErrors(true)
+        </div>
+    </div>
+    @form.FormGroup().TextBoxFor(m => m.UserName)
+    @form.FormGroup().PasswordFor(m => m.Password)    
+    @form.FormGroup().CustomControls(@Html.Bootstrap().SubmitButton().Text("Login").Style(ButtonStyle.Primary).LoadingText("Logging in..."))
+}
 
-<h1>Log In</h1>
-
-@using (Html.BeginForm()){
-    @Html.ValidationSummary(true)
-    
-    <p><input type="submit" value="Log In" /></p>
+@section Title {
+    <small> - Login</small>
 }

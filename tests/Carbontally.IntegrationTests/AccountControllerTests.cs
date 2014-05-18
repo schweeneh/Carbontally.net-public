@@ -26,7 +26,7 @@ namespace Carbontally.IntegrationTests
             // Arrange
             var model = new RegisterViewModel();
             
-            model.Email = null;
+            model.Email = "test@test.com";
             model.Password = "test";
             model.ConfirmPassword = "test";
 
@@ -34,11 +34,6 @@ namespace Carbontally.IntegrationTests
 
             //Act
             target.Register(model);
-        }
-
-        [TestMethod]
-        public void Confirm_ActivatesAnAccount() {
-
         }
     }
 }

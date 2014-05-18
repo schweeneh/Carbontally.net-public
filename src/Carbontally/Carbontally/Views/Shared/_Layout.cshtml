@@ -8,9 +8,11 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Carbontally</a>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand"><a href="@Url.Action("Index", "Home")">Carbontally</a>@RenderSection("Title", required: false)</div>
+            </div>
         </div>
     </div>
     @RenderBody()

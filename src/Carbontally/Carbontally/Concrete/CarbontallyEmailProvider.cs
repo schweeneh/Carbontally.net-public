@@ -51,20 +51,6 @@ namespace Carbontally.Concrete
                 message.Body = Body;
                 _smtpClient.Send(message);
             }
-            catch (SmtpException ex) {
-                log.Error("Error while attempting to send account activation email.", ex);
-                throw new SendActivationEmailException(string.Format("Error sending email to {0}", To == null ? "[No Email]" : To.ToString()), ex);
-            }
-            catch (ArgumentException ex)
-            {
-                log.Error("Error while attempting to send account activation email.", ex);
-                throw new SendActivationEmailException(string.Format("Error sending email to {0}", To == null ? "[No Email]" : To.ToString()), ex);
-            }
-            catch (FormatException ex)
-            {
-                log.Error("Error while attempting to send account activation email.", ex);
-                throw new SendActivationEmailException(string.Format("Error sending email to {0}", To == null ? "[No Email]" : To.ToString()), ex);
-            }
             catch (Exception ex)
             {
                 log.Error("Error while attempting to send account activation email.", ex);

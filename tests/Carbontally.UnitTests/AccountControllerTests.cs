@@ -14,15 +14,17 @@ namespace Carbontally.UnitTests
     [TestClass]
     public class AccountControllerTests
     {
-        private RegisterViewModel model;
+        private RegisterViewModel registerModel;
         private Mock<ISecurityProvider> securityMock;
         private Mock<IEmailProvider> emailMock;
         private AccountController controller;
+        private LoginViewModel loginModel;
 
         [TestInitialize]
         public void Initialize() {
             // Arrange
-            model = new RegisterViewModel();
+            registerModel = new RegisterViewModel();
+            loginModel = new LoginViewModel();
             securityMock = new Mock<ISecurityProvider>();
             emailMock = new Mock<IEmailProvider>();
 
@@ -34,7 +36,7 @@ namespace Carbontally.UnitTests
         public void Register_ShouldCreateAccountWhenModelIsValid()
         {
             // Act.
-            controller.Register(model);
+            controller.Register(registerModel);
 
             // Assert.
             securityMock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Once(), "Expected CreateUserAndAccount() to be called but it was not.");
@@ -45,7 +47,7 @@ namespace Carbontally.UnitTests
         {
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
-            controller.Register(model);
+            controller.Register(registerModel);
             
             // Assert.
             securityMock.Verify(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()), Times.Never(), "Expected CreateUserAndAccount() to NOT be called but it was.");
@@ -56,7 +58,7 @@ namespace Carbontally.UnitTests
             emailMock.Setup(m => m.SendAccountActivationEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<SendActivationEmailException>();
 
             // Act
-            controller.Register(model);
+            controller.Register(registerModel);
             var target = controller.ModelState;
 
             // Assert
@@ -69,7 +71,7 @@ namespace Carbontally.UnitTests
             securityMock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Throws<MembershipCreateUserException>();
 
             // Act
-            controller.Register(model);
+            controller.Register(registerModel);
             var target = controller.ModelState;
 
             // Assert
@@ -79,7 +81,7 @@ namespace Carbontally.UnitTests
         [TestMethod]
         public void Register_ShouldRedirectToAccountCreatedWhenAccountCreationSucceeds() {
             // Act
-            RedirectToRouteResult result = controller.Register(model) as RedirectToRouteResult;
+            RedirectToRouteResult result = controller.Register(registerModel) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Account", result.RouteValues["controller"]);
@@ -90,7 +92,7 @@ namespace Carbontally.UnitTests
         public void Register_ShouldNotLogInUserWhenModelIsNotValid() {
             // Act.
             controller.ModelState.AddModelError("key", "Model is invalid");
-            controller.Register(model);
+            controller.Register(registerModel);
 
             // Assert.
             securityMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
@@ -104,15 +106,15 @@ namespace Carbontally.UnitTests
             securityMock.Setup(m => m.CreateUserAndAccount(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>())).Returns(securityToken);
             
             // Setup model.
-            model.Email = "test@test.com";
+            registerModel.Email = "test@test.com";
 
             var confirmationUrl = "http://www.carbontally.org";
 
             // Act
-            controller.Register(model);
+            controller.Register(registerModel);
 
             // Assert
-            emailMock.Verify(m => m.SendAccountActivationEmail(model.Email, securityToken, confirmationUrl), Times.Once(),"Expected SendAccountActivationEmail() to be called but it was not.");
+            emailMock.Verify(m => m.SendAccountActivationEmail(registerModel.Email, securityToken, confirmationUrl), Times.Once(),"Expected SendAccountActivationEmail() to be called but it was not.");
         }
 
         [TestMethod]
@@ -171,5 +173,19 @@ namespace Carbontally.UnitTests
             // Assert
             Assert.AreEqual(false, target.Model);
         }
+
+        [TestMethod]
+        public void Login_ShouldAddModelError_WhenLoginFails()
+        {
+            securityMock.Setup(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(false);
+
+            // Act
+            controller.Login(loginModel);
+            var target = controller.ModelState;
+
+            // Assert
+            Assert.AreEqual(false, target.IsValid);
+        }
+    
     }
 }
