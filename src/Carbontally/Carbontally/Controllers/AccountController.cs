@@ -57,7 +57,6 @@ namespace Carbontally.Controllers
             return View();
         }
 
-        [HttpPost]
         public ActionResult Logout() {
             try {
                 _securityProvider.Logout();
