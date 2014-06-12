@@ -41,5 +41,9 @@ namespace Carbontally.Concrete
         public bool DeleteAccount(string userName) {
             return ((SimpleMembershipProvider)System.Web.Security.Membership.Provider).DeleteUser(userName, true);
         }
+
+        public static void Logout() {
+            WebSecurity.Logout();
+        }
     }
 }

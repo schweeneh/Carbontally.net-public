@@ -24,14 +24,23 @@ namespace Carbontally.Controllers
             _emailProvider = emailProvider;
         }
 
+        [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model) {
-            if (ModelState.IsValid)
-            {
-                // Cookie is not persisted, user has to login every time. Add checkbox for persistent cookie?
-                if (!_securityProvider.Login(model.UserName, model.Password))
-                {
-                    ModelState.AddModelError("", "Incorrect username or password.");
+            if (ModelState.IsValid) {
+                try {
+                    // Cookie is not persisted, user has to login every time. Add checkbox for persistent cookie?
+                    if (!_securityProvider.Login(model.UserName, model.Password)) {
+                        ModelState.AddModelError("", "Incorrect username or password.");
+                    }
+                    else {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                catch (Exception e) {
+                    log.Error(string.Format("User login failed - {0}", e.Message, e));
+                    ModelState.AddModelError("", "Something went wrong while trying to log you in.");
                 }
             }
 
@@ -39,13 +48,25 @@ namespace Carbontally.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register() {
+        public ViewResult Login() {
             return View();
         }
 
         [AllowAnonymous]
         public ViewResult Created() {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Logout() {
+            try {
+                _securityProvider.Logout();
+            }
+            catch (Exception e) {
+                log.Error(string.Format("Logout failed - {0}", e.Message), e);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]
@@ -61,6 +82,11 @@ namespace Carbontally.Controllers
             }
 
             return View(confirmed);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Register() {
+            return View();
         }
 
         [HttpPost]

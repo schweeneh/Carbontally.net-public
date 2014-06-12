@@ -20,20 +20,5 @@ namespace Carbontally.IntegrationTests
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarbontallyContext>());
             security = new CarbontallySecurityProvider();
         }
-
-        [TestMethod]
-        public void Register_CreatesAnAccount() {
-            // Arrange
-            var model = new RegisterViewModel();
-            
-            model.Email = "test@test.com";
-            model.Password = "test";
-            model.ConfirmPassword = "test";
-
-            AccountController target = new AccountController(new CarbontallySecurityProvider(), new CarbontallyEmailProvider(new CarbontallySmtpClient()));
-
-            //Act
-            target.Register(model);
-        }
     }
 }

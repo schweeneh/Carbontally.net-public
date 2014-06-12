@@ -89,16 +89,6 @@ namespace Carbontally.UnitTests
         }
         
         [TestMethod]
-        public void Register_ShouldNotLogInUserWhenModelIsNotValid() {
-            // Act.
-            controller.ModelState.AddModelError("key", "Model is invalid");
-            controller.Register(registerModel);
-
-            // Assert.
-            securityMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never(), "Expected Login() to NOT be called but it was.");
-        }
-
-        [TestMethod]
         public void Register_SendsEmailWhenAccountCreationSucceeds() {
             // setup mock security provider.
             var securityToken = "1234";
@@ -186,6 +176,31 @@ namespace Carbontally.UnitTests
             // Assert
             Assert.AreEqual(false, target.IsValid);
         }
-    
+
+        [TestMethod]
+        public void Login_ShouldAddModelError_WhenLoginThrowsException() {
+            // Arrange
+            securityMock.Setup(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Throws<Exception>();
+
+            // Act
+            controller.Login(loginModel);
+            var target = controller.ModelState;
+
+            // Assert
+            Assert.AreEqual(false, target.IsValid);
+        }
+
+        [TestMethod]
+        public void Login_ShouldRedirectToHomeIndex_WhenLoginSucceeds() {
+            // Arrange
+            securityMock.Setup(m => m.Login(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(true);
+
+            // Act
+            var result = controller.Login(loginModel) as RedirectToRouteResult;
+            
+            // Assert
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
     }
 }

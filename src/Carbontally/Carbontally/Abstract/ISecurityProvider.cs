@@ -28,5 +28,7 @@ namespace Carbontally.Abstract
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         bool ConfirmAccount(string accountConfirmationToken);
+
+        void Logout();
     }
 }
